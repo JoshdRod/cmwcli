@@ -1,4 +1,4 @@
-module github.com/JoshdRod/cmw-cli
+module github.com/JoshdRod/cmwcli
 
 go 1.23.0
 
