@@ -1,24 +1,23 @@
 package cmd
 
 import (
-	"testing"
-
 	"github.com/stretchr/testify/assert"
-	//"github.com/stretchr/testify/require"
-	//"github.com/spf13/afero" TODO: Re-include afero to allow test generated files to be removed automatically
 	"os"
+	"path/filepath"
+	"testing"
 )
 
 func TestCreateRecord(t *testing.T) {
+	tempFilePath := filepath.Join(t.TempDir(), "out.cbor")
 	cmd := NewCollectionCmd()
 
-	args := []string{"--data=../testdata/cbor-in-1.cbor", "--output=out.cbor"}
+	args := []string{"--data=../testdata/cbor-in-1.cbor", "--output=" + tempFilePath}
 	cmd.SetArgs(args)
 
 	err := cmd.Execute()
 	assert.NoError(t, err)
 
-	actual, err := os.ReadFile("out.cbor")
+	actual, err := os.ReadFile(tempFilePath)
 	assert.NoError(t, err)
 	expected, err := os.ReadFile("../testdata/expected-record.cbor")
 	assert.NoError(t, err)
@@ -27,15 +26,16 @@ func TestCreateRecord(t *testing.T) {
 }
 
 func TestCreateCollection(t *testing.T) {
+	tempFilePath := filepath.Join(t.TempDir(), "out.cbor")
 	cmd := NewCollectionCmd()
 
-	args := []string{"--data=../testdata/cbor-in-1.cbor", "--label=cbor1", "--data=../testdata/cbor-in-2.cbor", "--label=cbor2", "--output=out.cbor"}
+	args := []string{"--data=../testdata/cbor-in-1.cbor", "--label=cbor1", "--data=../testdata/cbor-in-2.cbor", "--label=cbor2", "--output=" + tempFilePath}
 	cmd.SetArgs(args)
 
 	err := cmd.Execute()
 	assert.NoError(t, err)
 
-	actual, err := os.ReadFile("out.cbor")
+	actual, err := os.ReadFile(tempFilePath)
 	assert.NoError(t, err)
 	expected, err := os.ReadFile("../testdata/expected-collection.cbor")
 	assert.NoError(t, err)
