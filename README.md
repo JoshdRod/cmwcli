@@ -1,3 +1,5 @@
+**⚠️This is the old development repository for cmwcli. For the latest version, go to: https://github.com/veraison/cmwcli⚠️**
+
 A CLI tool for Concise Message Wrapper.
 
 This tool can:
