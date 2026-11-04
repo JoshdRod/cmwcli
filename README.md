@@ -1,13 +1,13 @@
 A CLI tool for Concise Message Wrapper.
 
 This tool can:
-1. Create CMW collections from a set of individual files, with files containing Evidence CBOR.
+1. Create a CMW from a set of individual files, with each file containing CBOR Evidence.
 2. Append to existing CMW collections, by passing in file(s) as input.
 
 Currently in a prototype stage.
 TODO LIST:
 
-- ☑️ Serialise a CMW with  a basic evidence CBOR
+- ☑️ Serialise a CMW with a basic evidence CBOR
 - ☑️ Seralise multiple files into the same CMW
 - Append CBOR evidence(s) to an existing CMW
 
@@ -15,7 +15,7 @@ CURRENT PROGRESS:
 
 To create a record from a single file:
 
-`go run main.go collection --data file.cbor --output out.cbor`
+`go run main.go create --data file.cbor --output out.cbor`
 
 Flags:
 `data` - The file path of the CBOR evidence file to convert into a CMW.
@@ -23,7 +23,7 @@ Flags:
 
 To create a collection:
 
-`go run main.go collection --data file.cbor --label "label" [--data file2.cbor --label "label2" ...] [--cmwc_t "URI/OID"] --output out.cbor`
+`go run main.go create --data file.cbor --label "label" [--data file2.cbor --label "label2" ...] [--cmwc_t "URI/OID"] --output out.cbor`
 
 Flags:
 `data` - The file path(s) of the CBOR evidence file(s) to add to the CMW collection.

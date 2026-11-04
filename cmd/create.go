@@ -10,8 +10,8 @@ import (
 	"os"
 )
 
-// collectionCmd represents the collection command
-var collectionCmd = NewCollectionCmd()
+// createCmd represents the create command
+var createCmd = NewCreateCmd()
 
 /*
 Create a new CMW from the evidence files input.
@@ -23,14 +23,14 @@ All records have:
 	value = hash of evidence file
 	indicator = 4 (evidence)
 */
-func NewCollectionCmd() *cobra.Command {
+func NewCreateCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "collection",
+		Use:   "create",
 		Short: "Create a Conceptual Message Wrapper from (CBOR only) evidence file(s)",
 		Long: `Create a Conceptual Message Wrapper from (CBOR only) evidence file(s)
 	For example:
 
-	cmwcli collection --data evidence.cbor --label "evidence" --cmwc_t "https://example.com" --output out.cbor`,
+	cmwcli create --data evidence.cbor --label "evidence" --cmwc_t "https://example.com" --output out.cbor`,
 		Run: func(cmd *cobra.Command, args []string) {
 			// Read flags
 			data, err := cmd.Flags().GetStringSlice("data")
@@ -87,7 +87,7 @@ func NewCollectionCmd() *cobra.Command {
 					newCMWItem, err := cmw.NewMonad("application/eat+cbor", file, 4)
 					err = cmwOutput.AddCollectionItem(label[i], newCMWItem)
 					if err != nil {
-						fmt.Println("Error adding item from file", d, "to CMW collection")
+						fmt.Println("Error adding evidence from file", d, "to CMW collection")
 						fmt.Println(err)
 						return
 					}
@@ -113,7 +113,7 @@ func NewCollectionCmd() *cobra.Command {
 
 			cmwBytes, err := cmwOutput.MarshalCBOR()
 			if err != nil {
-				fmt.Println("Error marshalling CMW collection to a CBOR file. Maybe check the input file is valid CBOR?")
+				fmt.Println("Error marshalling CMW to a CBOR file. Maybe check the input file is valid CBOR?")
 				return
 			}
 
@@ -132,5 +132,5 @@ func NewCollectionCmd() *cobra.Command {
 }
 
 func init() {
-	rootCmd.AddCommand(collectionCmd)
+	rootCmd.AddCommand(createCmd)
 }
